@@ -1,11 +1,21 @@
 from celery import Celery
 
-print("sending message")
+print("sending chain message")
 app = Celery(
     'sample',
-    broker="sqs://key:secret@localhost:4566",
+    broker="amqp://guest:guest@localhost:5672",
 )
-app.send_task(
-    name='celery_django_sample.tasks.long_task',
-    queue='celery'
+first_step = app.signature(
+    'celery_django_sample.tasks.task',
+    options={
+        'queue': 'celery'
+    }
 )
+next_step = app.signature(
+    'other.tasks.task',
+    options={
+        'queue': 'next'
+    }
+)
+chain = (first_step|next_step)
+chain.apply_async()

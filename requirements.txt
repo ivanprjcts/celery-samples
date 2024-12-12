@@ -1,3 +1,2 @@
-django
-celery[sqs]==5.4.0
-kombu==5.4.1
+django==5.1.4
+celery==5.4.0

@@ -14,7 +14,8 @@ SECRET_KEY = 'django-insecure-&j^s5v)8&3lgj-vct&6meta35_vqay35%)yuut2um8af+=tn(g
 DEBUG = True
 
 # Celery settings
-CELERY_BROKER_URL = 'sqs://key:secret@localstack:4566'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672'
+CELERY_BROKER_HEARTBEAT = 8
 
 INSTALLED_APPS = [
     'celery_django_sample'

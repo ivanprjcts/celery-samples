@@ -1,25 +1,13 @@
 services:
   django-celery-worker:
     build: .
-    command: celery -A celery_django_sample worker --loglevel=info --concurrency 2
     volumes:
       - ./celery_django_sample:/app
     depends_on:
-      - localstack
+      - rabbitmq
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
     ports:
       - "5672:5672"  # RabbitMQ broker port
       - "15672:15672"  # RabbitMQ management UI port
-
-  localstack:
-    image: localstack/localstack:3.7.2
-    ports:
-      - "4566:4566"
-    environment:
-      LOCALSTACK_HOST: 'localstack'
-      AWS_ACCESS_KEY: 'key'
-      AWS_SECRET_ACCESS_KEY: 'secret'
-      AWS_DEFAULT_REGION: 'us-east-1'

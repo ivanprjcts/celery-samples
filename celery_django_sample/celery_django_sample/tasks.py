@@ -12,7 +12,6 @@ def add(x, y):
 
 
 @shared_task
-def long_task():
-    logger.info("Running long task ...")
-    sleep(10)  # Simulate a long-running task
+def task():
+    logger.info("Running task ...")
     return 'Task completed!'

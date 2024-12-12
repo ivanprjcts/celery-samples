@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./celery_django_sample /app/
 
 # Run Django server
-CMD ["celery", "--app", "celery_django_sample", "worker", "--concurrency", "2"]
+CMD ["celery", "--app", "celery_django_sample", "worker", "--concurrency", "2", "--pool=threads", "--loglevel=info"]
